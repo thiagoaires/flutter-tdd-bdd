@@ -1,5 +1,5 @@
 import 'package:faker/faker.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 class RemoteAuthentication {
@@ -9,31 +9,37 @@ class RemoteAuthentication {
   RemoteAuthentication({required this.httpClient, required this.url});
 
   Future<void> auth() async {
-    await httpClient.request(url: url);
+    await httpClient.request(url: url, method: 'post');
   }
 }
 
 abstract class HttpClient {
-  Future<void> request({required String url});
+  Future<void> request({required String url, required String method});
 }
 
 class HttpClientMock extends Mock implements HttpClient {}
 
 void main() {
-  test('Should call HTTP client with correct URL', () async {
+  late HttpClient httpClient;
+  late String url;
+  late RemoteAuthentication sut;
+  setUp(() {
+    httpClient = HttpClientMock();
+    url = faker.internet.httpUrl();
+    sut = RemoteAuthentication(httpClient: httpClient, url: url);
+  });
+  test('Should call HTTP client with correct URL and method', () async {
     // arrange
-    final HttpClient httpClient = HttpClientMock();
-    final url = faker.internet.httpUrl();
-    final sut = RemoteAuthentication(httpClient: httpClient, url: url);
-
-    when(httpClient.request(url: url)).thenAnswer((_) async => {});
 
     // act
 
+    when(
+      () => httpClient.request(url: url, method: 'post'),
+    ).thenAnswer((_) async => {});
     await sut.auth();
 
     // assert
 
-    verify(httpClient.request(url: url));
+    verify(() => httpClient.request(url: url, method: 'post')).called(1);
   });
 }
