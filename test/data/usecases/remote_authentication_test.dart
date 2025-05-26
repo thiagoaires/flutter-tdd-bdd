@@ -18,7 +18,7 @@ void main() {
   });
   test('Should call HTTP client with correct URL and method', () async {
     // arrange
-    final params = RemoteAuthenticationParams(
+    final params = AuthenticationParams(
       email: faker.internet.email(),
       password: faker.internet.password(),
     );
@@ -36,7 +36,11 @@ void main() {
     // assert
 
     verify(
-      () => httpClient.request(url: url, method: 'post', body: params.toJson()),
+      () => httpClient.request(
+        url: url,
+        method: 'post',
+        body: {'email': params.email, 'password': params.password},
+      ),
     ).called(1);
   });
 
