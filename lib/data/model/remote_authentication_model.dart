@@ -2,11 +2,11 @@ import 'package:fordev/data/http/http_client.dart';
 
 import '../../domain/usecases/authentication.dart';
 
-class RemoteAuthenticationModel {
+class RemoteAuthentication {
   final HttpClient httpClient;
   final String url;
 
-  RemoteAuthenticationModel({required this.httpClient, required this.url});
+  RemoteAuthentication({required this.httpClient, required this.url});
 
   Future<void> auth(AuthenticationParams params) async {
     final body = RemoteAuthenticationParams.fromDomain(params).toJson();

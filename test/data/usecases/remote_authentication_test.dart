@@ -10,11 +10,11 @@ class HttpClientMock extends Mock implements HttpClient {}
 void main() {
   late HttpClient httpClient;
   late String url;
-  late RemoteAuthenticationModel sut;
+  late RemoteAuthentication sut;
   setUp(() {
     httpClient = HttpClientMock();
     url = faker.internet.httpUrl();
-    sut = RemoteAuthenticationModel(httpClient: httpClient, url: url);
+    sut = RemoteAuthentication(httpClient: httpClient, url: url);
   });
   test('Should call HTTP client with correct URL and method', () async {
     // arrange
