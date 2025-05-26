@@ -1,14 +1,14 @@
 import '../entities/account_entity.dart';
 
 abstract class Authentication {
-  Future<AccountEntity> auth({required AuthenticationParams params});
+  Future<AccountEntity> auth({required RemoteAuthenticationParams params});
 }
 
-class AuthenticationParams {
+class RemoteAuthenticationParams {
   final String email;
   final String password;
 
-  AuthenticationParams({required this.email, required this.password});
+  RemoteAuthenticationParams({required this.email, required this.password});
 
   Map<String, dynamic> toJson() => {'email': email, 'password': password};
 }

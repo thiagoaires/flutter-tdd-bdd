@@ -18,7 +18,7 @@ void main() {
   });
   test('Should call HTTP client with correct URL and method', () async {
     // arrange
-    final params = AuthenticationParams(
+    final params = RemoteAuthenticationParams(
       email: faker.internet.email(),
       password: faker.internet.password(),
     );
