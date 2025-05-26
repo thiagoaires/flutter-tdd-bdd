@@ -1,6 +1,6 @@
 import 'package:faker/faker.dart';
 import 'package:fordev/data/http/http_client.dart';
-import 'package:fordev/data/usecases/remote_authentication.dart';
+import 'package:fordev/data/model/remote_authentication_model.dart';
 import 'package:fordev/domain/usecases/authentication.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -10,11 +10,11 @@ class HttpClientMock extends Mock implements HttpClient {}
 void main() {
   late HttpClient httpClient;
   late String url;
-  late RemoteAuthentication sut;
+  late RemoteAuthenticationModel sut;
   setUp(() {
     httpClient = HttpClientMock();
     url = faker.internet.httpUrl();
-    sut = RemoteAuthentication(httpClient: httpClient, url: url);
+    sut = RemoteAuthenticationModel(httpClient: httpClient, url: url);
   });
   test('Should call HTTP client with correct URL and method', () async {
     // arrange
