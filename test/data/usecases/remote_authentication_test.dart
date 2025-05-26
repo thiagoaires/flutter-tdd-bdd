@@ -54,11 +54,7 @@ void main() {
     // assert
 
     verify(
-      () => httpClient.request(
-        url: url,
-        method: 'post',
-        body: {'email': params.email, 'password': params.password},
-      ),
+      () => httpClient.request(url: url, method: 'post', body: params.toJson()),
     ).called(1);
   });
 
